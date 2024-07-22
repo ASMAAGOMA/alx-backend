@@ -62,6 +62,6 @@ class Server:
             'data': data,
             'next_page': page + 1 if page < pages else None,
             'prev_page': page - 1 if page > 1 else None,
-            'tota_pages': pages
+            'total_pages': pages
         }
         return hyper
