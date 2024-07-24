@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 """
-FIFO Cache Module
+LIFO Cache Module
 """
 
 from collections import OrderedDict
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """
-    FIFOCache class that inherits from BaseCaching and implements a FIFO caching system.
+    LIFOCache class that inherits from BaseCaching
+    and implements a LIFO caching system.
     """
 
     def __init__(self):
         """
-        Initialize the FIFOCache.
+        Initialize the LIFOCache.
         """
         super().__init__()
         self.cache_data = OrderedDict()
@@ -23,7 +24,7 @@ class FIFOCache(BaseCaching):
         """
         Add an item to the cache with the given key.
 
-        If the cache exceeds the maximum size, the first item is discarded.
+        If the cache exceeds the maximum size, the last item inserted is discarded.
 
         Args:
             key (str): The key of the item.
@@ -31,10 +32,13 @@ class FIFOCache(BaseCaching):
         """
         if key is None or item is None:
             return
+        if key in self.cache_data:
+            del self.cache_data[key]
         self.cache_data[key] = item
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            first, _ = self.cache_data.popitem(last=False)
-            print(f"DISCARD: {first}")
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            last_key = next(reversed(self.cache_data))
+            del self.cache_data[last_key]
+            print(f"DISCARD: {last_key}")
 
     def get(self, key):
         """
