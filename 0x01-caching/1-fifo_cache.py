@@ -33,6 +33,7 @@ class FIFOCache(BaseCaching):
             return
         if key in self.cache_data:
             self.cache_data[key] = item
+            self.cache_data.move_to_end(key)
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 first, _ = self.cache_data.popitem(last=False)
