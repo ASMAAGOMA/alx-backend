@@ -1,7 +1,9 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 fifo
 """
+
+
 from collections import OrderedDict
 
 BaseCaching = __import__('base_caching').BaseCaching
@@ -9,7 +11,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 class FIFOCache(BaseCaching):
     """
-    fifo module
+    first in first out module
     """
 
     def __init__(self):
