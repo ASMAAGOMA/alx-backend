@@ -4,6 +4,7 @@ fifo
 """
 
 
+from collections import OrderedDict
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -17,7 +18,7 @@ class FIFOCache(BaseCaching):
         Initiliaze
         """
         super().__init__()
-        self.order = []
+        self.cache_data = OrderedDict()
 
     def put(self, key, item):
         """
@@ -27,15 +28,12 @@ class FIFOCache(BaseCaching):
             return
         if key in self.cache_data:
             self.cache_data[key] = item
-            self.order.remove(key)
+            self.cache_data.move_to_end(key)
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                first = self.order.pop(0)
+                first,_ = self.cache_data.popitem(last=False)
                 print(f"DISCARD: {first}")
-                del self.cache_data[first]
             self.cache_data[key] = item
-
-        self.order.append(key)
 
     def get(self, key):
         """
