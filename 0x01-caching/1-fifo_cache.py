@@ -2,9 +2,8 @@
 """
 fifo
 """
-
-
 from collections import OrderedDict
+
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -31,7 +30,7 @@ class FIFOCache(BaseCaching):
             self.cache_data.move_to_end(key)
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                first,_ = self.cache_data.popitem(last=False)
+                first, _ = self.cache_data.popitem(last=False)
                 print(f"DISCARD: {first}")
             self.cache_data[key] = item
 
