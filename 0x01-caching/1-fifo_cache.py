@@ -9,7 +9,8 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 class FIFOCache(BaseCaching):
     """
-    FIFOCache class that inherits from BaseCaching and implements a FIFO caching system.
+    FIFOCache class that inherits from
+    BaseCaching and implements a FIFO caching system.
     """
 
     def __init__(self):
@@ -32,9 +33,9 @@ class FIFOCache(BaseCaching):
         if key is None or item is None:
             return
         self.cache_data[key] = item
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            first, _ = self.cache_data.popitem(last=False)
-            print(f"DISCARD: {first}")
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            first_key, _ = self.cache_data.popitem(False)
+            print("DISCARD:", first_key)
 
     def get(self, key):
         """
