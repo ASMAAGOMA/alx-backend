@@ -39,21 +39,23 @@ def get_user():
         return users.get(int(user_id))
     return None
 
+
 @app.before_request
 def before_request():
     """
-    before reguest method
+    before request method
     """
     g.user = get_user()
+
 
 @babel.localeselector
 def get_locale():
     """
     get locale method
     """
-    if g.user and g.user['locale']:
-        return g.user[locale]
     locale = request.args.get('locale')
+    if g.user and g.user['locale']:
+        return g.user['locale']
     if locale in app.config['LANGUAGES']:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
@@ -64,7 +66,7 @@ def index():
     """
     index method
     """
-    return render_template('./4-index.html')
+    return render_template('5-index.html')
 
 
 if __name__ == '__main__':
